@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: houduan
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 3MB
+  jackson:
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 8080
+
+app:
+  upload:
+    # 头像等静态文件目录（相对路径相对进程工作目录）
+    dir: ./houduan-uploads
+  jwt:
+    issuer: deltaforce
+    access-expire-minutes: 120
+    refresh-expire-days: 7
+    secret: ChangeThisToLongRandomSecretAtLeast32Chars
