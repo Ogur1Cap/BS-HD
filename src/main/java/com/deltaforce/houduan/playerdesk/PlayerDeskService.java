@@ -16,21 +16,26 @@ import java.util.Map;
 
 import static java.util.List.of;
 
+import com.deltaforce.houduan.violation.ViolationService;
+
 @Service
 public class PlayerDeskService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderOperationRepository operationRepository;
     private final NotificationRepository notificationRepository;
+    private final ViolationService violationService;
 
     public PlayerDeskService(UserRepository userRepository,
                              OrderRepository orderRepository,
                              OrderOperationRepository operationRepository,
-                             NotificationRepository notificationRepository) {
+                             NotificationRepository notificationRepository,
+                             ViolationService violationService) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.operationRepository = operationRepository;
         this.notificationRepository = notificationRepository;
+        this.violationService = violationService;
     }
 
     public Map<String, Object> stats(Long userId) {
@@ -76,6 +81,7 @@ public class PlayerDeskService {
      */
     @Transactional
     public List<Map<String, Object>> requestOrderCompletion(Long userId, Long orderId, String note) {
+        violationService.checkUserStatus(userId);
         UserEntity user = loadPlayerUser(userId);
         String pid = playerIdString(user);
         OrderEntity order = orderRepository.findById(orderId)
@@ -104,6 +110,7 @@ public class PlayerDeskService {
 
     @Transactional
     public List<Map<String, Object>> acceptOrder(Long userId, Long orderId) {
+        violationService.checkUserStatus(userId);
         UserEntity user = loadPlayerUser(userId);
         String pid = playerIdString(user);
         OrderEntity order = orderRepository.findById(orderId)
@@ -129,6 +136,7 @@ public class PlayerDeskService {
 
     @Transactional
     public List<Map<String, Object>> rejectOrder(Long userId, Long orderId, String reason) {
+        violationService.checkUserStatus(userId);
         UserEntity user = loadPlayerUser(userId);
         String pid = playerIdString(user);
         OrderEntity order = orderRepository.findById(orderId)

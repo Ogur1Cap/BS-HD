@@ -34,4 +34,13 @@ public class UserEntity {
     /** 打手账号关联 players.id，与订单 player_id 一致 */
     @Column(name = "player_profile_id")
     private Long playerProfileId;
+
+    @Column(nullable = false, length = 20)
+    private String status = "ACTIVE"; // ACTIVE, RESTRICTED, BANNED
+
+    @Column(name = "violation_count", nullable = false)
+    private int violationCount = 0;
+
+    @Column(name = "is_high_risk", nullable = false)
+    private boolean isHighRisk = false;
 }

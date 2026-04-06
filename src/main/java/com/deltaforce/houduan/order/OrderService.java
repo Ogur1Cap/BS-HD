@@ -15,21 +15,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.deltaforce.houduan.violation.ViolationService;
+
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderOperationRepository operationRepository;
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
+    private final ViolationService violationService;
 
     public OrderService(OrderRepository orderRepository,
                         OrderOperationRepository operationRepository,
                         UserRepository userRepository,
-                        NotificationRepository notificationRepository) {
+                        NotificationRepository notificationRepository,
+                        ViolationService violationService) {
         this.orderRepository = orderRepository;
         this.operationRepository = operationRepository;
         this.userRepository = userRepository;
         this.notificationRepository = notificationRepository;
+        this.violationService = violationService;
     }
 
     public List<Map<String, Object>> list(Long userId) {
@@ -44,6 +49,17 @@ public class OrderService {
 
     @Transactional
     public List<Map<String, Object>> create(Long userId, CreateOrderRequest request) {
+        violationService.checkUserStatus(userId);
+        
+        // 自动监测：短时间内频繁下单或虚假下单
+        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
+        long recentOrdersCount = orderRepository.findByUserIdOrderByCreatedAtDesc(userId).stream()
+                .filter(o -> o.getCreatedAt().isAfter(oneHourAgo))
+                .count();
+        if (recentOrdersCount >= 5) {
+            violationService.recordViolation(userId, "FAKE_ORDER", "系统检测到您在1小时内频繁创建超过5个订单，疑似虚假下单恶意刷单。", null);
+        }
+
         OrderEntity entity = new OrderEntity();
         entity.setUserId(userId);
         entity.setGame(request.getGame());
@@ -84,7 +100,16 @@ public class OrderService {
 
     @Transactional
     public List<Map<String, Object>> refund(Long userId, Long orderId, String reason) {
+        violationService.checkUserStatus(userId);
+        
         OrderEntity entity = mustFind(userId, orderId);
+        
+        // 自动监测：恶意退款行为
+        if (entity.getStatus() == OrderStatus.COMPLETED || entity.getStatus() == OrderStatus.COMPLETION_PENDING) {
+             // 服务已经完成或待审核完成，但仍然退款
+             violationService.recordViolation(userId, "MALICIOUS_REFUND", "系统检测到在订单即将完成或已完成时申请退款，疑似恶意退款白嫖服务行为。", String.valueOf(orderId));
+        }
+        
         entity.setStatus(OrderStatus.REFUND_REQUESTED);
         entity.setRefundReason(reason);
         entity.setUpdatedAt(LocalDateTime.now());

@@ -64,3 +64,7 @@ M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\user\UserEntity.j
 M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\user\UserProfileEntity.java
 M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\user\UserProfileRepository.java
 M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\user\UserRepository.java
+M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\violation\ViolationController.java
+M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\violation\ViolationEntity.java
+M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\violation\ViolationRepository.java
+M:\Vue\DeltaForce\HouDuan\src\main\java\com\deltaforce\houduan\violation\ViolationService.java

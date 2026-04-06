@@ -24,6 +24,7 @@ com\deltaforce\houduan\security\JwtAuthenticationFilter.class
 com\deltaforce\houduan\help\FaqItemEntity.class
 com\deltaforce\houduan\user\UserRepository.class
 com\deltaforce\houduan\config\OpenApiConfig.class
+com\deltaforce\houduan\violation\ViolationEntity.class
 com\deltaforce\houduan\order\OrderStatus.class
 com\deltaforce\houduan\support\SupportTicketEntity.class
 com\deltaforce\houduan\config\JwtProperties.class
@@ -35,6 +36,7 @@ com\deltaforce\houduan\order\OrderService$1.class
 com\deltaforce\houduan\map\UserMapMarkerRepository.class
 com\deltaforce\houduan\playerjoin\PlayerJoinApplicationRepository.class
 com\deltaforce\houduan\order\OrderController$RefundRequest.class
+com\deltaforce\houduan\violation\ViolationController$HandleViolationRequest.class
 com\deltaforce\houduan\user\UserProfileEntity.class
 com\deltaforce\houduan\playerjoin\JoinApplicationStatus.class
 com\deltaforce\houduan\order\OrderService$CreateOrderRequest.class
@@ -59,6 +61,8 @@ com\deltaforce\houduan\bossdesk\BossDeskService.class
 com\deltaforce\houduan\config\UploadProperties.class
 com\deltaforce\houduan\support\SupportCenterController$CreateTicketRequest.class
 com\deltaforce\houduan\settings\UserSettingsEntity.class
+com\deltaforce\houduan\violation\ViolationController$AppealRequest.class
+com\deltaforce\houduan\violation\ViolationController.class
 com\deltaforce\houduan\settings\UserSettingsRepository.class
 com\deltaforce\houduan\auth\RefreshTokenEntity.class
 com\deltaforce\houduan\notification\NotificationRepository.class
@@ -67,6 +71,7 @@ com\deltaforce\houduan\map\GameMapController$CreateMarkerRequest.class
 com\deltaforce\houduan\map\MapCsvUtil.class
 com\deltaforce\houduan\HouDuanApplication.class
 com\deltaforce\houduan\order\OrderOperationEntity.class
+com\deltaforce\houduan\violation\ViolationRepository.class
 com\deltaforce\houduan\map\MapPoiEntity.class
 com\deltaforce\houduan\help\FaqItemRepository.class
 com\deltaforce\houduan\security\JwtTokenProvider.class
@@ -86,5 +91,6 @@ com\deltaforce\houduan\delta\MissionBriefingService.class
 com\deltaforce\houduan\user\ProfileController.class
 com\deltaforce\houduan\order\OrderController$RescheduleRequest.class
 com\deltaforce\houduan\auth\dto\AuthDtos$LogoutRequest.class
+com\deltaforce\houduan\violation\ViolationService.class
 com\deltaforce\houduan\playerdesk\PlayerDeskController$CompleteNoteBody.class
 com\deltaforce\houduan\playerdesk\PlayerDeskService$1.class
